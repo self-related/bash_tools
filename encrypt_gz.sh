@@ -9,5 +9,5 @@ read -s PASSWD
 
 for arg in "$@"; do
   file_name="${arg%%/*}"
-  tar -cz "$file_name" | gpg --batch --passphrase="$PASSWD" -c --cipher-algo aes256 -o "$file_name.tar.gz.gpg"
+  tar -cz "$file_name" | gpg --batch --no-symkey-cache --passphrase="$PASSWD" -c --cipher-algo aes256 -o "$file_name.tar.gz.gpg"
 done
