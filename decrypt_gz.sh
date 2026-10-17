@@ -2,7 +2,7 @@
 
 printf "Enter passphrase:\n"
 stty -echo
-read PASSWD
+IFS= read PASSWD
 stty echo
 
 file_name="$1"
