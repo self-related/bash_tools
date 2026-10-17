@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env sh
 printf "Enter passphrase:\n"
 read -s PASSWD
 

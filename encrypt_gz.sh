@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env sh
 if [ -z "$@" ]; then
   printf "No input files\n"
   exit
