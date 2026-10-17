@@ -1,11 +1,14 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
 if [ -z "$@" ]; then
   printf "No input files\n"
   exit
 fi
 
 printf "Enter passphrase:\n"
-read -s PASSWD
+stty -echo
+read PASSWD
+stty echo
 
 for arg in "$@"; do
   file_name="${arg%%/*}"

@@ -1,6 +1,9 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
 printf "Enter passphrase:\n"
-read -s PASSWD
+stty -echo
+read PASSWD
+stty echo
 
 file_name="$1"
 gpg --batch --no-symkey-cache --passphrase="$PASSWD" -d "$file_name" | tar -xz
