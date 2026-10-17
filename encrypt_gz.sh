@@ -12,5 +12,7 @@ stty echo
 
 for arg in "$@"; do
   file_name="${arg%%/*}"
-  tar -cz "$file_name" | gpg --batch --no-symkey-cache --passphrase="$PASSWD" -c --cipher-algo aes256 -o "$file_name.tar.gz.gpg"
+  archive_name="$file_name.tar.gz.gpg"
+  printf "Creating $archive_name\n"
+  tar -cz "$file_name" | gpg --batch --no-symkey-cache --passphrase="$PASSWD" -c --cipher-algo aes256 -o "$archive_name"
 done
