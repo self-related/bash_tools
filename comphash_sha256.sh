@@ -8,35 +8,42 @@ if [ -f sha256sum.txt ]; then
   rm sha256sum.txt
 fi
 
-hashes=""
+hashes=()
 
 function comp_hash() {
-  name="$1"
-  hash=`sha256sum "$name"`
+  local file="$1"
+  hash=`sha256sum "$file"`
 
   if [ -z "$hash" ]; then
     return # skip if error
+  else
+    hashes+=("$hash")
   fi
 
-  hashes="$hashes$hash\n"
 }
 
+function check_dir() {
+  local current_path="$1"
 
-# check inner directories recursively
-for name in **/*; do 
-  comp_hash "$name"
+  for file in "$current_path/"*; do
+    if [ -d "$file" ]; then
+      check_dir "$file"
+    elif [ -f "$file" ]; then
+      comp_hash "$file"
+    fi
+  done
+}
+
+for file in *; do
+  if [ -d "$file" ]; then
+    check_dir "$file"
+  elif [ -f "$file" ]; then
+    comp_hash "$file"
+  fi
 done
 
-# check current directory files only
-for name in *; do
-  comp_hash "$name"
+for hash in "${hashes[@]}"; do
+  printf "$hash\n" >> sha256sum.txt
 done
 
-printf "$hashes" > sha256sum.txt
-printf "
---------------------------------------------------------------------------------
-$hashes
-------------------------------------------------------------------------------
-
-sha256sum.txt is ready
-"
+printf "sha256sum.txt is ready\n"
