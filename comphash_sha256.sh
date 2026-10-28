@@ -9,6 +9,7 @@ if [ -f sha256sum.txt ]; then
 fi
 
 hashes=()
+file_count=0
 
 function comp_hash() {
   local file="$1"
@@ -18,6 +19,7 @@ function comp_hash() {
     return # skip if error
   else
     hashes+=("$hash")
+    ((file_count++))
   fi
 
 }
@@ -46,4 +48,4 @@ for hash in "${hashes[@]}"; do
   printf "$hash\n" >> sha256sum.txt
 done
 
-printf "sha256sum.txt is ready\n"
+printf "files: $file_count\nsha256sum.txt is ready\n"
