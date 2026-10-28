@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Check sha256 hash for current directory files recursively!! # 
